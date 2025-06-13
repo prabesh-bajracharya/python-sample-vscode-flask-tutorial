@@ -2,7 +2,7 @@ trigger:
 - main
 
 pool:
-  vmImage: 'ubuntu-latest'
+  name: SelfHostedPool  # Change this to your actual agent pool name if different
 
 steps:
 - task: UsePythonVersion@0
@@ -16,5 +16,8 @@ steps:
   displayName: 'Install dependencies'
 
 - script: |
-    python hello_app/webapp.py
-  displayName: 'Run Flask app'
+    cd hello_app
+    set FLASK_APP=webapp.py
+    flask run
+  displayName: 'Run Flask app (Windows)'
+  condition: succeeded()
