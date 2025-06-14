@@ -2,7 +2,7 @@ trigger:
 - main
 
 pool:
-  name: SelfHostedPool  # Change this to your actual agent pool name if different
+  vmImage: 'ubuntu-latest'  # Hosted agent
 
 steps:
 - task: UsePythonVersion@0
@@ -17,7 +17,7 @@ steps:
 
 - script: |
     cd hello_app
-    set FLASK_APP=webapp.py
-    flask run
-  displayName: 'Run Flask app (Windows)'
+    export FLASK_APP=webapp.py
+    flask run --host=0.0.0.0 --port=5000
+  displayName: 'Run Flask app (Linux)'
   condition: succeeded()
